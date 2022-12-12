@@ -30,7 +30,7 @@ ShotConfig = few_shot.ShotConfig
 _NUM_INTRA_CLUSTER_SPLITS = 10
 
 # Number of tasks in the training set for ablation study.
-_NUM_TRAIN_TASKS_LIST = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+_NUM_TRAIN_TASKS_LIST = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 100] # 100 gets us everything
 
 # Number of clusters in the training set for ablation study.
 _NUM_TRAIN_CLUSTERS_LIST = range(1, 8)
