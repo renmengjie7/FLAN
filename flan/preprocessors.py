@@ -196,7 +196,7 @@ def reformat_with_flan_dialog_prompt(example):
   return reformat_passthrough(
       example,
       format_strings={
-          'inputs': '0 {inputs} X 1 FLAN',
+          'inputs': '{inputs}',
           'targets': '{targets}',
       })
 
@@ -205,7 +205,7 @@ def reformat_with_dialog_prompt(example):
   return reformat_passthrough(
       example,
       format_strings={
-          'inputs': '0 {inputs} X 1',
+          'inputs': '{inputs}',
           'targets': '{targets}',
       })
 
