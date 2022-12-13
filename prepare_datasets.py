@@ -50,6 +50,7 @@ if __name__ == '__main__':
     all_tasks.remove("winogrande_10templates") # Not working
     all_tasks.remove("xsum_10templates") # Manual download but not working
    
-    with Pool(36) as p:
-        p.map(prepare_task, all_tasks, ["train", "validation", "test"])
+    for split in ["train", "validation", "test"]:
+        with Pool(36) as p:
+            p.starmap(prepare_task, [(t, split) for t in all_tasks])
 

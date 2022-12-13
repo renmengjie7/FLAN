@@ -500,7 +500,7 @@ def _process_cnn_dailymail(example):
 
 TASK_CONFIGS['cnn_dailymail'] = _TaskConfig(
     source=seqio.TfdsDataSource(
-        tfds_name='cnn_dailymail:3.3.0', splits=SPLITS_DICT),
+        tfds_name='cnn_dailymail:3.4.0', splits=SPLITS_DICT),
     preprocessors=[
         _process_cnn_dailymail,
     ],
