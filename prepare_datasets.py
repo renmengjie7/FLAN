@@ -56,7 +56,7 @@ if __name__ == '__main__':
     # all_tasks.remove("newsroom_10templates") 
     # all_tasks.remove("winogrande_10templates") 
     # all_tasks.remove("story_cloze_10templates")
-    # all_tasks.remove("xsum_10templates")
+    # all_tasks.remove("xsum_10templates") 
     # all_tasks.remove("wmt16_translate_csen_10templates")
     
     for split in ["train", "validation", "test"]:

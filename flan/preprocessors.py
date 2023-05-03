@@ -316,6 +316,7 @@ def batch_apply_template(dataset, patterns_list):
       dataset, training_keys=get_training_keys(patterns_list))
 
   # Batch the dataset, in preparation for applying apply_template_to_batch.
+  # TODO 在这里直接以10来batch, 按顺序地使用template, 也挺合理的, 至少官方这样用的
   dataset_batched = dataset_batchable_features_only.batch(
       len(patterns_list), drop_remainder=True)
 
