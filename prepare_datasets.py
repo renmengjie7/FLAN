@@ -3,6 +3,9 @@ import tensorflow as tf
 import seqio
 from multiprocessing import Pool
 import json
+import os
+from tensorflow_datasets.core.utils import gcs_utils
+gcs_utils._is_gcs_disabled = True
 
 def process_prompt(prompt, response):
     '''Process a FLAN prompt to remove extra tokens'''
@@ -20,6 +23,9 @@ def process_single_example(example):
     )
 
 def prepare_task(task, split=None):
+    file = f'/shared_home/renmengjie/projects/multi-task-ft/data/flan/{task}_{split}.jsonl'
+    if os.path.exists(file):
+        return
     '''Saves a single task data'''
     dataset = seqio.get_mixture_or_task(task).get_dataset(
         split=split,
@@ -27,7 +33,7 @@ def prepare_task(task, split=None):
     )
     dataset = dataset.map(process_single_example)
     
-    with open(f'./FLANdata/{task}_{split}.jsonl', 'w') as f:
+    with open(file, 'w') as f:
         for (p, r) in dataset.as_numpy_iterator():
             f.write(
                 json.dumps({
@@ -46,11 +52,16 @@ if __name__ == '__main__':
     all_tasks += task_split.test_tasks
     print("TASKS: ", all_tasks)
 
-    all_tasks.remove("newsroom_10templates") # Manual download
-    all_tasks.remove("winogrande_10templates") # Not working
-    all_tasks.remove("xsum_10templates") # Manual download but not working
-   
+    # Manual download
+    # all_tasks.remove("newsroom_10templates") 
+    # all_tasks.remove("winogrande_10templates") 
+    # all_tasks.remove("story_cloze_10templates")
+    # all_tasks.remove("xsum_10templates")
+    # all_tasks.remove("wmt16_translate_csen_10templates")
+    
     for split in ["train", "validation", "test"]:
-        with Pool(36) as p:
-            p.starmap(prepare_task, [(t, split) for t in all_tasks])
-
+        for task in all_tasks:
+            print(task)
+            prepare_task(task, split)
+        # with Pool(36) as p:
+        #     p.starmap(prepare_task, [(t, split) for t in all_tasks])
